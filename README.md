@@ -1,1 +1,1 @@
-# freela-app
+# Mini CRM - Sistema de Gestão para Freelancers
