@@ -1,7 +1,6 @@
-import { Clock, FileText, LucideProps } from 'lucide-react';
+import { Clock, FileText } from 'lucide-react';
 import React from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card';
-
 
 // Stats Cards
 type CardProps = {

@@ -30,15 +30,15 @@ export function AppSidebar() {
     }, {
         name: "Clientes",
         icon: Users,
-        href: "/clientes",
+        href: "/clients",
     }, {
         name: "Propostas",
         icon: File,
-        href: "/propostas",
+        href: "/proposals",
     },{
         name: "Historico",
         icon: History,
-        href: "/historico",
+        href: "/history",
     }, {
         name: "Profile",
         icon: User,
