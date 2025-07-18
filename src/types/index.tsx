@@ -6,19 +6,20 @@ export type ClientsType =  {
     project: string,
     status: string,
     totalValue: string,
-    contactDate: string | Date | any
+    contactDate: string | Date | any,
+    observations?: string
 }
 
 export type ProposalType = {
     id: number;
-    titulo: string;
-    cliente: string;
-    valorEstimado: string;
+    title: string;
+    client: string;
+    estimatedValue: string;
     status: string;
-    dataEnvio: string;
-    prazoResposta: string;
-    descricao: string;
-    prazo: string;
+    shippingDate: string;
+    deadlineResponse: string;
+    description: string;
+    term: string;
 }
 
 

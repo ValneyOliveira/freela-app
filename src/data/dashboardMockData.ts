@@ -83,4 +83,4 @@ import { DollarSign, FileText, TrendingUp, Users } from "lucide-react";
   ];
 
 
-  export {stats_data, recentActivities_data, activeProposals_data }
+export { stats_data, recentActivities_data, activeProposals_data }

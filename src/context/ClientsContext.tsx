@@ -1,9 +1,8 @@
 'use client'
-import { ClientsType } from '@/types';
-// ClientsContext.js
-import React, { createContext, useState, useContext } from 'react';
 
-// Initial client data
+import React, { createContext, useState, useContext } from 'react';
+import { ClientsType } from '@/types';
+
 const initialClients = [
   {
     id: 1,
@@ -47,7 +46,6 @@ const initialClients = [
   }
 ];
 
-// Create context
 const ClientsContext = createContext<ClientsType[] | any>({
     id: 1,
     name: "Tech Solutions Ltd",
@@ -60,7 +58,6 @@ const ClientsContext = createContext<ClientsType[] | any>({
 
 });
 
-// Provider component
 export const ClientsProvider = ({ children } : { children: React.ReactNode }) => {
 
   const [clients, setClients] = useState<ClientsType[] | any >(initialClients);
@@ -92,7 +89,10 @@ export const ClientsProvider = ({ children } : { children: React.ReactNode }) =>
 
   return (
     <ClientsContext.Provider
-      value={{ clients, addClient, updateClient, removeClient, filterStatus, setFilterStatus,  searchTerm, setSearchTerm, filteredClients }}
+      value={{ 
+        clients, addClient, updateClient, removeClient, filterStatus, 
+        setFilterStatus,  searchTerm, setSearchTerm, filteredClients 
+      }}
     >
       {children}
     </ClientsContext.Provider>

@@ -2,7 +2,6 @@ import { Clock, FileText } from 'lucide-react';
 import React from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../ui/card';
 
-// Stats Cards
 type CardProps = {
   title: string;
   value: string;
@@ -11,7 +10,6 @@ type CardProps = {
   color: string;
 }; type CardList = { stats: CardProps[] }
 
-// Recent Activities
 type RecentActivitiesProps = {
   action: string;
   client: string
@@ -19,7 +17,6 @@ type RecentActivitiesProps = {
   type: 'proposal' | 'client' | 'success' | "followup" | string;
 }; type RecentActivitiesList = { recentActivities: RecentActivitiesProps[]; }
 
-// Active Proposals
 type ActiveProposalsProps = {
   title: string;
   client: string;
@@ -107,34 +104,34 @@ const ActivesProposal: React.FC<ActiveProposalsList> = ({ activeProposals }) => 
               Propostas aguardando resposta do cliente
             </CardDescription>
           </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              {activeProposals.map((proposal, index) => (
-                <div key={index} className="p-4 border rounded-lg">
-                  <div className="flex justify-between items-start mb-2">
-                    <h4 className="font-medium text-foreground">{proposal.title}</h4>
-                    <span className="text-lg font-bold text-foreground">{proposal.value}</span>
-                  </div>
-                  <div className="flex justify-between items-center text-sm text-muted-foreground">
-                    <span>{proposal.client}</span>
-                    <div className="flex items-center gap-2">
-                      <span className={`px-2 py-1 rounded text-xs ${
-                        proposal.status === 'Aguardando' ? 'bg-orange-300 text-warning-foreground' :
-                        proposal.status === 'Em análise' ? 'bg-green-300 text-primary-foreground bg-war' :
-                        'bg-accent/20 text-accent-foreground'
-                      }`}>
-                        {proposal.status}
-                      </span>
-                      <span>• {proposal.daysLeft} dias restantes</span>
-                    </div>
-                  </div>
+      <CardContent>
+        <div className="space-y-4">
+          {activeProposals.map((proposal, index) => (
+            <div key={index} className="p-4 border rounded-lg">
+              <div className="flex justify-between items-start mb-2">
+                <h4 className="font-medium text-foreground">{proposal.title}</h4>
+                <span className="text-lg font-bold text-foreground">{proposal.value}</span>
+              </div>
+              <div className="flex justify-between items-center text-sm text-muted-foreground">
+                <span>{proposal.client}</span>
+                <div className="flex items-center gap-2">
+                  <span className={`px-2 py-1 rounded text-xs ${
+                    proposal.status === 'Aguardando' ? 'bg-orange-300 text-warning-foreground' :
+                    proposal.status === 'Em análise' ? 'bg-green-300 text-primary-foreground bg-war' :
+                    'bg-accent/20 text-accent-foreground'
+                  }`}>
+                    {proposal.status}
+                  </span>
+                  <span>• {proposal.daysLeft} dias restantes</span>
                 </div>
-              ))}
+              </div>
             </div>
-          </CardContent>
-        </Card>
-    </>
+          ))}
+        </div>
+      </CardContent>
+    </Card>
+  </>
   )
 }
 
-export { StatsCards, RecentActivities, ActivesProposal}
+export { StatsCards, RecentActivities, ActivesProposal }

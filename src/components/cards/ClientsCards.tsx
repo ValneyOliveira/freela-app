@@ -14,9 +14,7 @@ import { useClients } from '@/context/ClientsContext'
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card'
 import { Badge } from '../ui/badge'
 
-
-// formulário
-export const CustomerFormDialog = ({ title }: {title?: string}) => {
+export const ClientFormDialog = ({ title }: {title?: string}) => {
   const { addClient } = useClients();
   const [isModalOpen, setIsModalOpen] = useState<boolean | undefined>(Boolean)
 
@@ -120,23 +118,21 @@ export const CustomerFormDialog = ({ title }: {title?: string}) => {
   )
 }
 
-
-// clients list
 export const ShowClientsList = () => {
   const { filteredClients } = useClients();
   
   const getStatusColor = (status: string) => {
     switch (status) {
       case "active":
-        return "bg-green-400";
+        return "bg-green-500";
       case "negotiation":
-      return "bg-orange-300";
+      return "bg-orange-500";
       case "completed":
-        return "bg-green-400";
+        return "bg-blue-500";
       case "lost":
         return "bg-red-500";
       default:
-        return "bg-muted text-primary-foreground";
+        return "bg-gray-400";
     }
   };
   
@@ -190,11 +186,11 @@ export const ShowClientsList = () => {
                 </span>
             </div>
             <div className="flex gap-2">
-                <Button variant="outline" size="sm" className="flex-1 hover:cursor-pointer">
-                                  Editar
+                <Button variant="outline" size="sm" className="flex-1 hover:cursor-pointer" onClick={() => alert(`Editando cliente: ${client.name}`)}>
+                  Editar
                 </Button>
-                <Button size="sm" className="flex-1 bg-blue-500 hover:cursor-pointer hover:bg-blue-400">
-                                  Ver Detalhes
+                <Button size="sm" className="flex-1 bg-blue-500 hover:cursor-pointer hover:bg-blue-400" onClick={() => alert(`Ver detalhes do cliente: ${client.name}`)}>
+                  Ver Detalhes
                 </Button>
               </div>
           </CardContent>
@@ -204,7 +200,6 @@ export const ShowClientsList = () => {
   )
 }
 
-// search box
 export const ClientsBoxFilter = () => {
   const { searchTerm, setSearchTerm } = useClients();
 
@@ -221,7 +216,6 @@ export const ClientsBoxFilter = () => {
   )
 }
 
-//show filtered clients
 export const ShowFilteredClients = () => {
   const { filterStatus, searchTerm, filteredClients } = useClients();
   
@@ -238,7 +232,7 @@ export const ShowFilteredClients = () => {
                 { searchTerm || filterStatus !== "todos" ? "Tente ajustar os filtros de busca." : "Adicione seu primeiro cliente para começar." }
               </p>
             {!searchTerm && filterStatus === "todos" && (
-              <CustomerFormDialog title="Adicionar Primeiro Cliente"/>
+              <ClientFormDialog title="Adicionar Primeiro Cliente"/>
             )}
           </CardContent>
         </Card>

@@ -5,11 +5,11 @@ import React from 'react'
 const page = ({children} : {children: React.ReactNode}) => {
   return (
     <SidebarProvider >
-        <AppSidebar />
+      <AppSidebar />
 
-        <main className='w-full h-full p-4'>        
-            { children }
-        </main>
+      <main className='w-full h-full p-4'>        
+        { children }
+      </main>
 
     </SidebarProvider>
   )

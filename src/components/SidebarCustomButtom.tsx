@@ -1,9 +1,9 @@
 'use client'
 
 import React from 'react'
-import { SidebarTrigger, useSidebar } from './ui/sidebar'
+import { useSidebar } from './ui/sidebar'
 import { Button } from './ui/button';
-import { ArrowLeft, EyeClosed, Menu, X } from 'lucide-react';
+import { ArrowLeft, Menu } from 'lucide-react';
 
 export const SidebarDesktopCustomButtom = () => {
   const { open, setOpen, isMobile } = useSidebar();
@@ -25,7 +25,7 @@ export const SidebarMobileCustomButtom = () => {
   return (
     <div>
       {isMobile && (
-        <Button type="button" onClick={() => setOpenMobile(!openMobile)} className="bg-inherit mb-2 p-0 hover:bg-gray-300 cursor-pointer">
+        <Button type="button" onClick={() => setOpenMobile(!openMobile)} className="bg-inherit mb-2 p-0 hover:bg-gray-300 cursor-pointer border shadow-md">
           <Menu className="w-full text-gray-400" />
         </Button>
       )}
