@@ -1,6 +1,7 @@
 'use client'
 
 import React, { FormEvent, useState } from 'react'
+import { useProposal } from '@/context/ProposalContext'
 
 import { Label } from '../ui/label'
 import { Badge } from '../ui/badge'
@@ -17,28 +18,37 @@ import {
   Dialog, DialogContent, DialogDescription, 
   DialogHeader, DialogTitle, DialogTrigger 
 } from '../ui/dialog'
-import { useProposal } from '@/context/ProposalContext'
-
+import { ProposalType } from '@/types'
 
 export const ProposalFormDialog = ({ btn_name }: { btn_name?: string}) => {
   const { addProposal } = useProposal();
   const [isModalOpen, setIsModalOpen] = useState<boolean | undefined>(Boolean)
 
   const [title, setTitle] = useState<string>("");
-  const [cliente, setCliente] = useState<string>("");
-  const [valorEstimado, setValorEstimado] = useState<string>("");
-  const [prazo, setPrazo] = useState<string>("");
-  const [descricao, setDescricao] = useState<string>("");
-  const [prazoResposta, setPrazoResposta] = useState<string>("");
+  const [client, setClient] = useState<string>("");
+  const [estimatedValue, setEstimatedValue] = useState<string>("");
   const [status, setStatus] = useState<string>("enviada");
-  
+  const [shippingDate, setShippingDate] = useState<string>("");
+  const [deadlineResponse, setDeadlineResponse] = useState<string>("enviada");
+  const [description, setDescription] = useState<string>("");
+  const [term, setTerm] = useState<string>("");
+
+  const formattedCurrency = Number(estimatedValue).toLocaleString('pt-BR', {
+    style: 'currency',
+    currency: 'BRL',
+  });
+
   const handleAddProposal = (e: FormEvent) =>  { 
     e.preventDefault();
 
-    addProposal({ id: Math.random(), titulo: title, cliente, valorEstimado, status, 
-      dataEnvio: new Date().toLocaleDateString(['en-US', 'pt-BR']), prazoResposta, descricao, prazo
+    addProposal({ 
+      id: Math.random(), title, client, 
+      estimatedValue: formattedCurrency, status, 
+      shippingDate, deadlineResponse, description, term, createdAt: new Date().toLocaleDateString(['en-US', 'pt-BR'])
     });
-    setIsModalOpen(false) 
+
+    setTitle(""); setClient(""); setEstimatedValue(""); setStatus(""); setShippingDate("");
+    setDeadlineResponse(""); setDescription(""); setTerm(""); setIsModalOpen(false) 
   }
   
   return (
@@ -61,15 +71,17 @@ export const ProposalFormDialog = ({ btn_name }: { btn_name?: string}) => {
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="titulo">Título da Proposta</Label>
-                  <Input id="titulo" placeholder="Ex: Landing Page Responsiva" />
+                  <Input id="titulo" placeholder="Ex: Landing Page Responsiva" 
+                    value={title} onChange={(e) => setTitle(e.target.value)}
+                  />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="cliente-select">Cliente</Label>
-                  <Select>
+                  <Select onValueChange={setClient} defaultValue="tech-solutions">
                     <SelectTrigger>
                       <SelectValue placeholder="Selecione o cliente" />
                     </SelectTrigger>
-                    <SelectContent>
+                    <SelectContent >
                       <SelectItem value="tech-solutions">Tech Solutions Ltda</SelectItem>
                       <SelectItem value="startup">Startup Inovadora</SelectItem>
                       <SelectItem value="ecommerce">E-commerce Plus</SelectItem>
@@ -80,38 +92,44 @@ export const ProposalFormDialog = ({ btn_name }: { btn_name?: string}) => {
               
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="valor">Valor Estimado</Label>
-                  <Input id="valor" placeholder="R$ 5.000" />
+                  <Label htmlFor="value">Valor Estimado</Label>
+                  <Input id="value" placeholder="R$ 5.000" />
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="prazo-projeto">Prazo do Projeto</Label>
-                  <Input id="prazo-projeto" placeholder="30 dias úteis" />
+                  <Input id="prazo-projeto" placeholder="30 dias úteis" 
+                    value={estimatedValue} onChange={(e) => setEstimatedValue(e.target.value)} 
+                  />
                 </div>
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="descricao-proposta">Descrição do Projeto</Label>
+                <Label htmlFor="proposed-description">Descrição do Projeto</Label>
                 <Textarea 
-                  id="descricao-proposta" 
+                  id="proposed-description" 
                   placeholder="Descreva detalhadamente o que será desenvolvido..."
                   rows={4}
+                  value={description} onChange={(e) => setDescription(e.target.value)}
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="prazo-resposta">Prazo para Resposta</Label>
-                  <Input id="prazo-resposta" type="date" />
+                  <Label htmlFor="deadline-response">Prazo para Resposta</Label>
+                  <Input id="deadline-response" type="date" 
+                    value={deadlineResponse} onChange={(e) => setDeadlineResponse(e.target.value)}
+                  />
+                  
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="status-inicial">Status Inicial</Label>
-                  <Select defaultValue="enviada">
+                  <Label htmlFor="initial-status">Status Inicial</Label>
+                  <Select defaultValue="sent" onValueChange={setStatus}>
                     <SelectTrigger>
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="enviada">Enviada</SelectItem>
-                      <SelectItem value="negociacao">Em Negociação</SelectItem>
+                      <SelectItem value="sent">Enviada</SelectItem>
+                      <SelectItem value="negotiation">Em Negociação</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -121,7 +139,7 @@ export const ProposalFormDialog = ({ btn_name }: { btn_name?: string}) => {
                 <Button variant="outline" onClick={() => setIsModalOpen(false)} className='bg-red-500 hover:bg-red-400 hover:cursor-pointer'>
                   Cancelar
                 </Button>
-                <Button onClick={ handleAddProposal} className='bg-blue-500 hover:bg-blue-400 hover:cursor-pointer'>
+                <Button onClick={ handleAddProposal } className='bg-blue-500 hover:bg-blue-400 hover:cursor-pointer'>
                   Criar Proposta
                 </Button>
               </div>
@@ -174,7 +192,7 @@ export const ShowProposalList = () => {
 
 return (
   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-    {filteredProposals.map((proposal : any) => {
+    {filteredProposals.map((proposal : ProposalType) => {
       const daysRemaining = getDaysRemaining(proposal.deadlineResponse);
       return (
         <Card key={proposal.id} className="shadow-soft hover:shadow-medium transition-shadow">
@@ -207,11 +225,12 @@ return (
                     Enviada em
                   </span>
                   <span className="text-foreground">
-                    {new Date(proposal.dataEnvio).toLocaleDateString('pt-BR')}
+                    {new Date(proposal.createdAt).toLocaleDateString('pt-BR')}
+                    
                    </span>
                 </div>
 
-                {proposal.status === 'enviada' && (
+                {proposal.status === 'sent' && (
                   <div className="flex items-center justify-between text-sm">
                     <span className="flex items-center text-muted-foreground">
                       <Clock className="h-4 w-4 mr-1" />
@@ -259,13 +278,13 @@ export const ProposalBoxFilter = () => {
   )
 }
 
-export const ShowFilteredProposal = () => {
+export const NoProposalsFound = () => {
   const { filteredProposals } = useProposal();
   
   return (
     <>
       {filteredProposals.length === 0 && (
-        <Card className="shadow-soft">
+        <Card>
           <CardContent className="p-12 text-center">
             <Building className="h-12 w-12 text-muted-foreground mx-auto mb-4" />
               <h3 className="text-lg font-medium text-foreground mb-2">

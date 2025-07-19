@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { FileText, Plus } from 'lucide-react';
 
 import {  SidebarMobileCustomButtom } from '@/components/SidebarCustomButtom';
-import { ActivesProposal, RecentActivities, StatsCards } from '@/components/cards/DashboardCards';
+import { ActivesProposal, RecentActivities, StatsCards } from '@/components/cards/Dashboard';
 import { activeProposals_data, recentActivities_data, stats_data } from '@/data/dashboardMockData';
 
 const Dashboard = () => {

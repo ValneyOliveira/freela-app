@@ -6,7 +6,7 @@ export type ClientsType =  {
     project: string,
     status: string,
     totalValue: string,
-    contactDate: string | Date | any,
+    contactDate: string | Date,
     observations?: string
 }
 
@@ -20,7 +20,18 @@ export type ProposalType = {
     deadlineResponse: string;
     description: string;
     term: string;
+    createdAt: string | Date;
 }
 
-
-
+export type HistoryType = {
+    id: number;
+    type: string;
+    title: string;
+    description: string;
+    date: string;
+    details: {
+        proposal: string;
+        client: string;
+        value: string;
+    };
+}

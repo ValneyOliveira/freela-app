@@ -44,11 +44,11 @@ export function AppSidebar() {
         icon: User,
         href: "/profile",
     }
-    , { 
-        name: "Settings",
-        icon: Settings,
-        href: "/settings",
-    }
+    // , { 
+    //     name: "Settings",
+    //     icon: Settings,
+    //     href: "#",
+    // }
 ]
 
   return (

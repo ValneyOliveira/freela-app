@@ -10,10 +10,12 @@ const initialProposals = [
         client: "Tech Solutions Ltd",
         estimatedValue: "R$ 5,000",
         status: "sent",
-        shippingDate: "2024-01-15",
-        deadlineResponse: "2024-02-15",
+        shippingDate: "15-05-2026",
+        deadlineResponse: "2025-02-15",
         description: "Desenvolvimento de um site institucional responsivo.",
-        term: "30 dias"
+        term: "30 dias",
+        createdAt: new Date("2025-4-5")
+      
     },
     {
         id: 2,
@@ -21,10 +23,11 @@ const initialProposals = [
         client: "Innovative Startup",
         estimatedValue: "R$ 3,500",
         status: "negotiation",
-        shippingDate: "2024-01-10",
-        deadlineResponse: "2024-02-10",
+        shippingDate: "2025-01-10",
+        deadlineResponse: ("2024-02-10"),
         description: "Criação de uma landing page otimizada para conversão.",
-        term: "20 dias"
+        term: "20 dias",
+        createdAt: new Date("2025-2-5")
     },
     {
         id: 3,
@@ -33,19 +36,21 @@ const initialProposals = [
         estimatedValue: "R$ 22,000",
         status: "accepted",
         shippingDate: "2023-12-20",
-        deadlineResponse: "2024-01-20",
+        deadlineResponse: "2025-01-20",
         description: "Desenvolvimento de um sistema completo de gestão para e-commerce.",
-        term: "60 dias"
+        term: "60 dias",
+        createdAt: new Date("2025-7-6")
     }, {
         id: 4,
         title: "Aplicativo Móvel para Agência Criativa",
         client: "Agency Creative",
         estimatedValue: "R$ 18,000",
         status: "rejected",
-        shippingDate: "2024-01-05",
-        deadlineResponse: "2024-02-05",
+        shippingDate: "2025-01-05",
+        deadlineResponse: "2025-02-05",
         description: "Criação de um aplicativo móvel para gerenciamento de projetos.",
-        term: "45 dias"
+        term: "45 dias",
+        createdAt: new Date("2025-4-5")
     }
 ]
 
@@ -53,12 +58,13 @@ const ProposalContext= createContext<ProposalType[] | any>({
     id: 1,
     title: "Desenvolvimento de Site Institucional",
     client: "Tech Solutions Ltd",
-    estimatedValue: "R$ 5,000",
+    estimatedValue: "5,000",
     status: "enviada",
     shippingDate: new Date().toLocaleDateString('PT-BR'),
-    deadlineResponse: "2024-02-15",
+    deadlineResponse: "2025-02-15",
     description: "Desenvolvimento de um site institucional responsivo.",
-    term: "30 dias"
+    term: "30 dias",
+    createdAt: new Date("2025-4-5")
 });
 
 export const ProposalProvider = ({ children } : { children: React.ReactNode }) => {

@@ -1,6 +1,6 @@
 import React from 'react'
 
-import { ClientFormDialog, ClientsBoxFilter, ShowFilteredClients, ShowClientsList } from '@/components/cards/ClientsCards';
+import { ClientFormDialog, ClientsBoxFilter, NoClientsFound, ShowClientsList } from '@/components/cards/Clients';
 import Header from '@/components/Header';
 
 const Clients = () => {
@@ -15,7 +15,7 @@ const Clients = () => {
         </div>
 
         <ShowClientsList />
-        <ShowFilteredClients />
+        <NoClientsFound />
     </div>
   )
 };

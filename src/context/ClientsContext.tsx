@@ -46,22 +46,24 @@ const initialClients = [
   }
 ];
 
-const ClientsContext = createContext<ClientsType[] | any>({
-    id: 1,
-    name: "Tech Solutions Ltd",
-    email: "contact@techsolutions.com",
-    phone: "(11) 99999-9999",
-    project: "E-commerce Platform",
-    status: "active",
-    totalValue: "R$ 15,000",
-    contactDate: new Date().toLocaleDateString('PT-BR'), 
+type ClientsContextType = {
+  clients: ClientsType[];
+  setClients: React.Dispatch<React.SetStateAction<ClientsType[]>>;
+  searchTerm: string;
+  setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
+  addClient: (newClient: ClientsType) => void;
+  updateClient: (id: string | number, updatedData: ClientsType) => void;
+  removeClient: (id: string | number) => void;
+  filteredClients: ClientsType[]
+}
 
-});
+
+const ClientsContext = createContext<ClientsContextType>({} as ClientsContextType);
 
 export const ClientsProvider = ({ children } : { children: React.ReactNode }) => {
 
-  const [clients, setClients] = useState<ClientsType[] | any >(initialClients);
-  const [filterStatus, setFilterStatus] = useState("all");
+  const [clients, setClients] = useState<ClientsType[] >(initialClients);
+
   const [searchTerm, setSearchTerm] = useState("");
 
   const addClient = (newClient: ClientsType) => {
@@ -90,8 +92,8 @@ export const ClientsProvider = ({ children } : { children: React.ReactNode }) =>
   return (
     <ClientsContext.Provider
       value={{ 
-        clients, addClient, updateClient, removeClient, filterStatus, 
-        setFilterStatus,  searchTerm, setSearchTerm, filteredClients 
+        clients, setClients, addClient, updateClient, removeClient, 
+        searchTerm, setSearchTerm, filteredClients 
       }}
     >
       {children}

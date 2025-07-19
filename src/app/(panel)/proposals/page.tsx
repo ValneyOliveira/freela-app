@@ -2,8 +2,8 @@ import React from 'react'
 
 import { 
   ProposalBoxFilter, ProposalFormDialog, 
-  ShowFilteredProposal, ShowProposalList 
-} from '@/components/cards/ProposalCard'
+  NoProposalsFound, ShowProposalList 
+} from '@/components/cards/Proposal'
 import Header from '@/components/Header'
 
 const page = () => {
@@ -18,7 +18,7 @@ const page = () => {
       </div>
     
       <ShowProposalList />
-      <ShowFilteredProposal />
+      <NoProposalsFound />
   </div>
   )
 }

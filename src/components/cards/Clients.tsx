@@ -24,7 +24,7 @@ export const ClientFormDialog = ({ title }: {title?: string}) => {
   const [project, setProject] = useState<string>("");
   const [observation, setObservation] = useState<string>("");
   const [status, setStatus] = useState<string>("");
-  const [totalValue, setTotalValue] = useState<string>("R$: 500.00");
+  const [totalValue, setTotalValue] = useState<string>("R$ 0,00");
   
   const handleAddClient = (e: FormEvent) =>  { 
     e.preventDefault();
@@ -216,8 +216,8 @@ export const ClientsBoxFilter = () => {
   )
 }
 
-export const ShowFilteredClients = () => {
-  const { filterStatus, searchTerm, filteredClients } = useClients();
+export const NoClientsFound = () => {
+  const { searchTerm, filteredClients } = useClients();
   
   return (
     <>
@@ -229,9 +229,9 @@ export const ShowFilteredClients = () => {
                 Nenhum cliente encontrado
               </h3>
               <p className="text-muted-foreground mb-4">
-                { searchTerm || filterStatus !== "todos" ? "Tente ajustar os filtros de busca." : "Adicione seu primeiro cliente para começar." }
+                Tente ajustar os filtros de busca ou adicione seu primeiro cliente.
               </p>
-            {!searchTerm && filterStatus === "todos" && (
+            {searchTerm && (
               <ClientFormDialog title="Adicionar Primeiro Cliente"/>
             )}
           </CardContent>
