@@ -4,7 +4,7 @@ import { FileText, Plus } from 'lucide-react';
 
 import {  SidebarMobileCustomButtom } from '@/components/SidebarCustomButtom';
 import { ActivesProposal, RecentActivities, StatsCards } from '@/components/cards/Dashboard';
-import { activeProposals_data, recentActivities_data, stats_data } from '@/data/dashboardMockData';
+import { activeProposals_data, recentActivities_data, stats_data } from '@/Fake_Data/dashboardMockData';
 
 const Dashboard = () => {
 

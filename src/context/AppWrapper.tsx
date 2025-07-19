@@ -3,6 +3,7 @@
 import { ClientsProvider } from "./ClientsContext"
 import { HistoryProvider } from "./HistoryContext"
 import { ProposalProvider } from "./ProposalContext"
+import { UserProvider } from "./UserContext"
 
 const AppWrapper = ({ children }: { children: React.ReactNode }) => {
     
@@ -10,7 +11,9 @@ const AppWrapper = ({ children }: { children: React.ReactNode }) => {
     <ClientsProvider>
         <ProposalProvider>
           <HistoryProvider>
-            {children}
+            <UserProvider>
+              {children}
+            </UserProvider>
           </HistoryProvider>
         </ProposalProvider>
     </ClientsProvider>

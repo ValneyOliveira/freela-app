@@ -14,17 +14,17 @@ import { useClients } from '@/context/ClientsContext'
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card'
 import { Badge } from '../ui/badge'
 
-export const ClientFormDialog = ({ title }: {title?: string}) => {
-  const { addClient } = useClients();
+export const ClientFormDialog = ({ title, client }: { title?: string, client?: ClientsType  }) => {
+  const { addClient, updateClient } = useClients();
   const [isModalOpen, setIsModalOpen] = useState<boolean | undefined>(Boolean)
 
-  const [name, setName] = useState<string>("");
-  const [phone, setPhone] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [project, setProject] = useState<string>("");
-  const [observation, setObservation] = useState<string>("");
-  const [status, setStatus] = useState<string>("");
-  const [totalValue, setTotalValue] = useState<string>("R$ 0,00");
+  const [name, setName] = useState<string>( client?.name || "");
+  const [phone, setPhone] = useState<string>(client?.phone || "");
+  const [email, setEmail] = useState<string>(client?.email || "");
+  const [project, setProject] = useState<string>(client?.project || "");
+  const [observation, setObservation] = useState<string>(client?.status || "");
+  const [status, setStatus] = useState<string>(client?.status || "");
+  const [totalValue, setTotalValue] = useState<string>(client?.totalValue || "R$ 0,00");
   
   const handleAddClient = (e: FormEvent) =>  { 
     e.preventDefault();
@@ -34,19 +34,34 @@ export const ClientFormDialog = ({ title }: {title?: string}) => {
     });
     setIsModalOpen(false) 
   }
+
+  const handleUpdateClient = (e: FormEvent) => {
+    e.preventDefault();
+
+    const data = {
+      id: client!.id,
+      name, email, phone, project, status,  
+      totalValue, contactDate: new Date().toLocaleDateString(['en-US', 'pt-BR'])
+    }
+
+    updateClient(client!.id, data)
+
+    setIsModalOpen(false)
+  }
   
   return (
     <div>
         <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
           <DialogTrigger asChild>
-            <Button className='bg-blue-500 hover:bg-blue-400 hover:cursor-pointer'>
-              <Plus className="w-4 h-4 mr-2" />
-              { title ? title : "Novo Cliente"}
+            <Button variant={!client && "outline"} className={`${!client && "bg-blue-500 hover:bg-blue-400 hover:text-while text-white"} border-1 hover:cursor-pointer`}>
+              {!client && <Plus className="w-4 h-4 mr-2" />}
+              {client ? "Editar" : "Novo Cliente"}
             </Button>
           </DialogTrigger>
           <DialogContent className="sm:max-w-[500px]">
             <DialogHeader>
-              <DialogTitle>Adicionar Novo Cliente</DialogTitle>
+              <DialogTitle>{client ? "Atualizar Cliente" : "Adicionar Novo Cliente"}</DialogTitle>
+              
               <DialogDescription>
                 Preencha as informações do cliente para adicioná-lo ao seu CRM.
               </DialogDescription>
@@ -107,8 +122,8 @@ export const ClientFormDialog = ({ title }: {title?: string}) => {
                 <Button onClick={() => setIsModalOpen(false)} className='bg-red-500 hover:bg-red-400 hover:cursor-pointer'>
                   Cancelar
                 </Button>
-                <Button onClick={handleAddClient} className='bg-blue-500 hover:bg-blue-400 hover:cursor-pointer'>
-                  Adicionar Cliente
+                <Button onClick={client ? handleUpdateClient : handleAddClient} className='bg-blue-500 hover:bg-blue-400 hover:cursor-pointer'>
+                  {client ? "Atualizar" : "Adicionar Cliente"}
                 </Button>
               </div>
             </form>
@@ -186,9 +201,10 @@ export const ShowClientsList = () => {
                 </span>
             </div>
             <div className="flex gap-2">
-                <Button variant="outline" size="sm" className="flex-1 hover:cursor-pointer" onClick={() => alert(`Editando cliente: ${client.name}`)}>
-                  Editar
-                </Button>
+
+
+              <ClientFormDialog title='Editar' client={client}/>
+
                 <Button size="sm" className="flex-1 bg-blue-500 hover:cursor-pointer hover:bg-blue-400" onClick={() => alert(`Ver detalhes do cliente: ${client.name}`)}>
                   Ver Detalhes
                 </Button>

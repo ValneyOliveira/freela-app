@@ -96,7 +96,7 @@ export const ProposalProvider = ({ children } : { children: React.ReactNode }) =
   });
 
   return (
-        <ProposalContext.Provider value={{ proposals, addProposal, updateProposal, removeProposal, filterStatus, setFilterStatus, searchTerm, setSearchTerm, filteredProposals }}
+      <ProposalContext.Provider value={{ proposals, addProposal, updateProposal, removeProposal, filterStatus, setFilterStatus, searchTerm, setSearchTerm, filteredProposals }}
     >
       {children}
     </ProposalContext.Provider>

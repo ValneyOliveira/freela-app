@@ -35,3 +35,12 @@ export type HistoryType = {
         value: string;
     };
 }
+
+export type UserType = {
+    id: number;
+    name: string;
+    email: string;
+    phone: string;
+    location: string;
+    avatar?: string;
+}

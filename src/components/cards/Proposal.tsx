@@ -20,18 +20,18 @@ import {
 } from '../ui/dialog'
 import { ProposalType } from '@/types'
 
-export const ProposalFormDialog = ({ btn_name }: { btn_name?: string}) => {
-  const { addProposal } = useProposal();
+export const ProposalFormDialog = ({ proposal }: { proposal?: ProposalType}) => {
+  const { addProposal, updateProposal} = useProposal();
   const [isModalOpen, setIsModalOpen] = useState<boolean | undefined>(Boolean)
 
-  const [title, setTitle] = useState<string>("");
-  const [client, setClient] = useState<string>("");
-  const [estimatedValue, setEstimatedValue] = useState<string>("");
+  const [title, setTitle] = useState<string>(proposal?.title  || "");
+  const [client, setClient] = useState<string>(proposal?.client  || "");
+  const [estimatedValue, setEstimatedValue] = useState<string>(proposal?.estimatedValue  || "");
   const [status, setStatus] = useState<string>("enviada");
-  const [shippingDate, setShippingDate] = useState<string>("");
-  const [deadlineResponse, setDeadlineResponse] = useState<string>("enviada");
-  const [description, setDescription] = useState<string>("");
-  const [term, setTerm] = useState<string>("");
+  const [shippingDate, setShippingDate] = useState<string>(proposal?.shippingDate  || "");
+  const [deadlineResponse, setDeadlineResponse] = useState<string>(proposal?.deadlineResponse  || "enviada");
+  const [description, setDescription] = useState<string>(proposal?.description  || "");
+  const [term, setTerm] = useState<string>(proposal?.term  || "");
 
   const formattedCurrency = Number(estimatedValue).toLocaleString('pt-BR', {
     style: 'currency',
@@ -50,19 +50,33 @@ export const ProposalFormDialog = ({ btn_name }: { btn_name?: string}) => {
     setTitle(""); setClient(""); setEstimatedValue(""); setStatus(""); setShippingDate("");
     setDeadlineResponse(""); setDescription(""); setTerm(""); setIsModalOpen(false) 
   }
+
+  const handleUpdateProposal = (e: FormEvent) => {
+    e.preventDefault();
+
+    const data = { id: proposal?.id, title, client, estimatedValue,
+      status, shippingDate, deadlineResponse, description, term
+    }
+
+    updateProposal(proposal!.id, data)
+    setIsModalOpen(false)
+
+  }
   
   return (
     <div>
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
           <DialogTrigger asChild>
-            <Button className='bg-blue-500 hover:bg-blue-400 hover:cursor-pointer'>
-              <Plus className="w-4 h-4 mr-2" />
-              Nova Proposta
+            {/* <Button className='bg-blue-500 hover:bg-blue-400 hover:cursor-pointer'> */}
+            <Button variant={!proposal && "outline"} className={`${!proposal && " bg-blue-500 hover:bg-blue-400 hover:text-while text-white"}  border-1 hover:cursor-pointer`}>
+              {!proposal && <Plus className="w-4 h-4 mr-2" />}
+              {proposal ? "Editar" : "Nova Proposta"}
             </Button>
+
           </DialogTrigger>
           <DialogContent className="sm:max-w-[600px]">
             <DialogHeader>
-              <DialogTitle>Criar Nova Proposta</DialogTitle>
+              <DialogTitle>{client ? "Atualizar Proposta" : "Criar Nova Proposta"} </DialogTitle>
               <DialogDescription>
                 Preencha os detalhes da proposta comercial.
               </DialogDescription>
@@ -136,11 +150,13 @@ export const ProposalFormDialog = ({ btn_name }: { btn_name?: string}) => {
               </div>
 
               <div className="flex justify-end gap-3 text-white">
-                <Button variant="outline" onClick={() => setIsModalOpen(false)} className='bg-red-500 hover:bg-red-400 hover:cursor-pointer'>
+                {/* onClick={client ? handleUpdateClient : handleAddClient} */}
+                <Button variant="outline" className='bg-red-500 hover:bg-red-400 hover:cursor-pointer'>
                   Cancelar
                 </Button>
-                <Button onClick={ handleAddProposal } className='bg-blue-500 hover:bg-blue-400 hover:cursor-pointer'>
-                  Criar Proposta
+                <Button onClick={proposal ? handleUpdateProposal :  handleAddProposal } className='bg-blue-500 hover:bg-blue-400 hover:cursor-pointer'>
+
+                  {proposal ? "Atualizar" : "Criar Proposta"}
                 </Button>
               </div>
             </form>
@@ -247,9 +263,10 @@ return (
               </div>
 
               <div className="flex gap-2 pt-2 border-t">
-                <Button variant="outline" size="sm" className="flex-1 hover:cursor-pointer" onClick={() => alert(`Editando proposta: ${proposal.title}`)}>
+                <ProposalFormDialog proposal={proposal}/>
+                {/* <Button variant="outline" size="sm" className="flex-1 hover:cursor-pointer" onClick={() => alert(`Editando proposta: ${proposal.title}`)}>
                   Editar
-                </Button>
+                </Button> */}
                 <Button size="sm" className="flex-1 bg-blue-500 hover:cursor-pointer hover:bg-blue-400" onClick={() => alert(`Ver detalhes da proposta: ${proposal.title}`)}>
                   Ver Detalhes
                 </Button>
