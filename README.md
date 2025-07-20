@@ -17,10 +17,10 @@ O projeto tem como principais objetivos:
 ## 💻 Funcionalidades Principais
 
 - Cadastro e gerenciamento de clientes
-- Criação e acompanhamento de propostas comerciais
+- Criação e acompanhamento de propostas 
 - Visualização do histórico de negociações
 - Edição de perfil profissional
-- Dashboard com métricas básicas do negócio
+- Dashboard com métricas básicas 
 
 ## ✨ Considerações Finais
 
