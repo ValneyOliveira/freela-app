@@ -68,8 +68,7 @@ export const ProposalFormDialog = ({btn_name, proposal }: {btn_name?: string, pr
     <div>
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
           <DialogTrigger asChild>
-            {/* <Button className='bg-blue-500 hover:bg-blue-400 hover:cursor-pointer'> */}
-            <Button variant={!proposal ?  "outline" : undefined} className={`${!proposal && " bg-blue-500 hover:bg-blue-400 hover:text-while text-white"}  border-1 hover:cursor-pointer`}>
+            <Button variant={!proposal ?  "outline" : undefined} className={`${!proposal && " bg-blue-500 hover:bg-blue-400 hover:text-while text-white"} ${proposal?.id && "text-black bg-neutral-50 hover:bg-neutral-100"}  border-1 hover:cursor-pointer`}>
               {!proposal && <Plus className="w-4 h-4 mr-2" />}
               {proposal ? "Editar" : "Nova Proposta"}
             </Button>
@@ -212,19 +211,18 @@ return (
     {filteredProposals.map((proposal : ProposalType) => {
       const daysRemaining = getDaysRemaining(proposal.deadlineResponse);
       return (
-        <Card key={proposal.id} className="shadow-soft hover:shadow-medium transition-shadow">
-          <CardHeader className="pb-3">
+        <Card key={proposal.id} className="hover:shadow-medium ">
+          <CardHeader>
             <div className="flex justify-between items-start">
-              <CardTitle className="text-lg line-clamp-2">{proposal.title}</CardTitle>
+              <CardTitle className="text-lg line-clamp-2">{proposal.title.length > 10? proposal.title.slice(0, 20) + "...": proposal.title}</CardTitle>
               <Badge className={getStatusColor(proposal.status)}>
                 {getStatusLabel(proposal.status)}
               </Badge>
             </div>
-            <p className="text-sm text-muted-foreground">{proposal.client}</p>
           </CardHeader>
             <CardContent className="space-y-4">
               <p className="text-sm text-muted-foreground line-clamp-2">
-                {proposal.description}
+                {proposal.description.length > 40 ? proposal.description.slice(0, 50) + "..." : proposal.description}
               </p>
                 
               <div className="space-y-2">
@@ -243,31 +241,30 @@ return (
                   </span>
                   <span className="text-foreground">
                     {new Date(proposal.createdAt).toLocaleDateString('pt-BR')}
-                    
                    </span>
                 </div>
 
-                {proposal.status === 'sent' && (
-                  <div className="flex items-center justify-between text-sm">
-                    <span className="flex items-center text-muted-foreground">
-                      <Clock className="h-4 w-4 mr-1" />
-                      Resposta em
-                    </span>
-                    <span className={`font-medium ${
-                      daysRemaining <= 2 ? 'text-destructive' : 
-                      daysRemaining <= 5 ? 'text-warning' : 'text-foreground'
-                    }`}>
-                      {daysRemaining > 0 ? `${daysRemaining} dias` : 'Vencida'}
-                    </span>
-                  </div>
-                )}
+                <div className="flex items-center justify-between text-sm">
+                  <span className="flex items-center text-muted-foreground">
+                    <Clock className="h-4 w-4 mr-1" />
+                    Resposta em
+                  </span>
+
+                  <span className={`font-medium ${
+                    daysRemaining <= 0
+                      ? 'text-destructive'
+                      : daysRemaining <= 2
+                      ? 'text-warning'
+                      : 'text-foreground'
+                  }`}>
+                    {daysRemaining > 0 ? `${daysRemaining} dias` : 'Vencida'}
+                  </span>
+                </div>
               </div>
 
               <div className="flex gap-2 pt-2 border-t">
                 <ProposalFormDialog proposal={proposal}/>
-                {/* <Button variant="outline" size="sm" className="flex-1 hover:cursor-pointer" onClick={() => alert(`Editando proposta: ${proposal.title}`)}>
-                  Editar
-                </Button> */}
+                
                 <Button size="sm" className="flex-1 bg-blue-500 hover:cursor-pointer hover:bg-blue-400" onClick={() => alert(`Ver detalhes da proposta: ${proposal.title}`)}>
                   Ver Detalhes
                 </Button>

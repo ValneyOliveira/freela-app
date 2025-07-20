@@ -8,19 +8,21 @@ import { useRouter } from 'next/navigation'
 
 const page = ({children} : {children: React.ReactNode}) => {
   const router = useRouter()
-  const { profileData } = useUser()
+  const { profileData, isHydrated  } = useUser()
 
   useEffect(() => {
-    if(!profileData) {
+    if(isHydrated && !profileData?.email) {
       router.replace('/')
     }
-  })
+  }, [isHydrated, profileData])
+
+  if(!isHydrated) {
+    return <span></span>;
+  }
 
   return (
     <>
-    {!profileData && <p></p>}
-
-    {profileData && (
+    {profileData?.email && (
       <SidebarProvider >
         <AppSidebar />
           <main className='w-full h-full p-4'>        
@@ -28,7 +30,6 @@ const page = ({children} : {children: React.ReactNode}) => {
           </main>
     </SidebarProvider>
     )}
-    
     </>
   )
 }
