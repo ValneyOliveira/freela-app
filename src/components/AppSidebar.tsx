@@ -83,13 +83,15 @@ export function AppSidebar() {
                                 </Link>
                         </SidebarMenuItem>
                     ))}
+
+
                 </SidebarMenu>
             </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
         <SidebarFooter>
             <Button variant={"outline"} className="bg-blue-100 flex justify-between items-center cursor-pointer hover:bg-gray-300 " onClick={logout}>
-                Sair
+                <span className={`${!open && !isMobile && "hidden"}`}>Sair</span>
                 <LogOut />
             </Button>
         </SidebarFooter>
