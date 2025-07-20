@@ -77,7 +77,7 @@ const ProposalContext= createContext<ProposalContextType>({
   setFilterStatus: () => {},
   searchTerm: "",
   setSearchTerm: () => {},
-  filteredProposals: [],
+  filteredProposals: []
 });
 
 export const ProposalProvider = ({ children } : { children: React.ReactNode }) => {

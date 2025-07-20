@@ -54,8 +54,9 @@ export const ProposalFormDialog = ({btn_name, proposal }: {btn_name?: string, pr
   const handleUpdateProposal = (e: FormEvent) => {
     e.preventDefault();
 
-    const data = { id: proposal?.id, title, client, estimatedValue,
-      status, shippingDate, deadlineResponse, description, term
+    const data: ProposalType = { id: proposal!.id, title, client, estimatedValue,
+      status, shippingDate, deadlineResponse, description, term, 
+      createdAt: new Date()
     }
 
     updateProposal(proposal!.id, data)
