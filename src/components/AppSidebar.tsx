@@ -15,13 +15,15 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar"
-import { File, History, Home, Menu, Settings, User, Users } from "lucide-react"
+import { File, History, Home, LogOut, Menu, Settings, User, Users } from "lucide-react"
 import { Button } from "./ui/button"
 import { SidebarDesktopCustomButtom } from "./SidebarCustomButtom"
+import { useUser } from "@/context/UserContext"
 
 export function AppSidebar() {
     const { open, setOpen, isMobile, setOpenMobile} = useSidebar()
     const isActive = usePathname()
+    const { logout } = useUser()
 
     const items = [{
         name: "Dashboard",
@@ -44,11 +46,6 @@ export function AppSidebar() {
         icon: User,
         href: "/profile",
     }
-    // , { 
-    //     name: "Settings",
-    //     icon: Settings,
-    //     href: "#",
-    // }
 ]
 
   return (
@@ -56,7 +53,7 @@ export function AppSidebar() {
       <SidebarContent >
         <SidebarGroup className="overflow-hidden">
             {open && (
-                <SidebarGroupLabel className="mb-10">
+                <SidebarGroupLabel className="md:mb-10">
                     <Link href={"/"} className="text-xl font-bold text-blue-500">
                         FreelanceCRM
                     </Link>
@@ -90,7 +87,12 @@ export function AppSidebar() {
             </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
-      <SidebarFooter />
+        <SidebarFooter>
+            <Button variant={"outline"} className="bg-blue-100 flex justify-between items-center cursor-pointer hover:bg-gray-300 " onClick={logout}>
+                Sair
+                <LogOut />
+            </Button>
+        </SidebarFooter>
     </Sidebar>
   )
 }

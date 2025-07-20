@@ -5,6 +5,8 @@ import { FileText, Plus } from 'lucide-react';
 import {  SidebarMobileCustomButtom } from '@/components/SidebarCustomButtom';
 import { ActivesProposal, RecentActivities, StatsCards } from '@/components/cards/Dashboard';
 import { activeProposals_data, recentActivities_data, stats_data } from '@/Fake_Data/dashboardMockData';
+import { ClientFormDialog } from '@/components/cards/Clients';
+import { ProposalFormDialog } from '@/components/cards/Proposal';
 
 const Dashboard = () => {
 
@@ -18,14 +20,9 @@ const Dashboard = () => {
         <SidebarMobileCustomButtom />
 
         <div className='hidden lg:flex flex-wrap gap-4 items-center'>
-          <Button  className="flex items-center bg-blue-500 hover:bg-blue-400">
-            <Plus/>
-            <span>Novo Cliente</span>
-          </Button>
-          <Button variant={"outline"} className="flex items-center">
-            <FileText className="mr-2" />
-            <span>Nova Proposta</span>
-          </Button>
+
+          <ClientFormDialog />
+            <ProposalFormDialog btn_name='new'/>
         </div>
       </div>
 

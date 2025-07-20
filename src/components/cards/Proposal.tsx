@@ -8,7 +8,7 @@ import { Badge } from '../ui/badge'
 import { Input } from '../ui/input'
 import { Button } from '../ui/button'
 import { Textarea } from '../ui/textarea'
-import { Building, Calendar, Clock, DollarSign, Plus } from 'lucide-react'
+import { Building, Calendar, Clock, DollarSign, FileText, Plus } from 'lucide-react'
 import { Card, CardContent, CardHeader, CardTitle } from '../ui/card'
 import { 
   Select, SelectContent, SelectItem, 
@@ -68,8 +68,8 @@ export const ProposalFormDialog = ({btn_name, proposal }: {btn_name?: string, pr
     <div>
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
           <DialogTrigger asChild>
-            <Button variant={!proposal ?  "outline" : undefined} className={`${!proposal && " bg-blue-500 hover:bg-blue-400 hover:text-while text-white"} ${proposal?.id && "text-black bg-neutral-50 hover:bg-neutral-100"}  border-1 hover:cursor-pointer`}>
-              {!proposal && <Plus className="w-4 h-4 mr-2" />}
+            <Button variant={!proposal ?  "outline" : undefined} className={`${!proposal && !btn_name && " bg-blue-500 hover:bg-blue-400 hover:text-while text-white"} ${proposal?.id && "text-black bg-neutral-50 hover:bg-neutral-100"} border-1 hover:cursor-pointer`}>
+              {!proposal && <FileText className="w-4 h-4 mr-2" />}
               {proposal ? "Editar" : "Nova Proposta"}
             </Button>
 
