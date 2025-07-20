@@ -7,8 +7,6 @@ import { Label } from './ui/label';
 import { Input } from './ui/input';
 import { useUser } from '@/context/UserContext';
 import { useRouter } from 'next/navigation';
-import { SidebarProvider } from './ui/sidebar';
-import { AppSidebar } from './AppSidebar';
 
 
 export const LoginForm = () => {
@@ -90,33 +88,5 @@ export const LoginForm = () => {
       </Card>
 
     </div>
-    )
-}
-
-
-export const Auth = ({children} : {children?: React.ReactNode}) => {
-    const { profileData } = useUser();
-    
-    const router = useRouter()
-
-    if(!profileData) {
-        router.back()
-    }
-
-
-    return (
-        <>
-        {!profileData && <p></p>}
-
-            {profileData && (
-                <SidebarProvider >
-                    <AppSidebar />
-
-                    <main className='w-full h-full p-4'>        
-                    { children }
-                    </main>
-                </SidebarProvider>
-            )}
-        </>
     )
 }

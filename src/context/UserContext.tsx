@@ -7,7 +7,7 @@ import { UserType } from '@/types';
 const initialUser: UserType = {
     id: 1,
     name: "João Silva",
-    email: "admin@email.com",
+    email: "",
     phone: "+55 11 91234-5678",
     location: "São Paulo, SP",
     avatar: "https://example.com/avatar.jpg",
@@ -39,7 +39,15 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
 
     const login = (email: string, password: string): boolean => {
         if (email === 'admin@email.com' && password === '12345678') {
-            const user = { ...initialUser, email }
+            const user = { 
+                id: 1,
+                name: "João Silva",
+                email: email,
+                phone: "+55 11 91234-5678",
+                location: "São Paulo, SP",
+                avatar: "https://example.com/avatar.jpg" 
+            }
+
             setProfileData(user)
             localStorage.setItem('user', JSON.stringify(user))
             return true
