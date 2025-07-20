@@ -10,7 +10,7 @@ export type ClientsType =  {
     observations?: string
 }
 
-export type ProposalType = {
+export type ProposalType =  {
     id: number;
     title: string;
     client: string;

@@ -60,7 +60,7 @@ export const UserProvider = ({ children }: { children: React.ReactNode }) => {
     }
 
     return (
-        <UserContext.Provider value={{ profileData, setProfileData, deleteAccount, updateProfile, login }}>
+        <UserContext.Provider value={{ profileData, setProfileData, deleteAccount, updateProfile, login, logout }}>
             {children}
         </UserContext.Provider>
     );

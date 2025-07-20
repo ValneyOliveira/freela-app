@@ -20,7 +20,7 @@ import {
 } from '../ui/dialog'
 import { ProposalType } from '@/types'
 
-export const ProposalFormDialog = ({ proposal }: { proposal?: ProposalType}) => {
+export const ProposalFormDialog = ({btn_name, proposal }: {btn_name?: string, proposal?: ProposalType}) => {
   const { addProposal, updateProposal} = useProposal();
   const [isModalOpen, setIsModalOpen] = useState<boolean | undefined>(Boolean)
 
@@ -68,7 +68,7 @@ export const ProposalFormDialog = ({ proposal }: { proposal?: ProposalType}) => 
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
           <DialogTrigger asChild>
             {/* <Button className='bg-blue-500 hover:bg-blue-400 hover:cursor-pointer'> */}
-            <Button variant={!proposal && "outline"} className={`${!proposal && " bg-blue-500 hover:bg-blue-400 hover:text-while text-white"}  border-1 hover:cursor-pointer`}>
+            <Button variant={!proposal ?  "outline" : undefined} className={`${!proposal && " bg-blue-500 hover:bg-blue-400 hover:text-while text-white"}  border-1 hover:cursor-pointer`}>
               {!proposal && <Plus className="w-4 h-4 mr-2" />}
               {proposal ? "Editar" : "Nova Proposta"}
             </Button>

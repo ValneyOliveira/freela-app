@@ -3,7 +3,7 @@
 import React, { createContext, useState, useContext } from 'react';
 import { ProposalType } from '@/types';
 
-const initialProposals = [
+const initialProposals: ProposalType[] = [
     {
         id: 1, 
         title: "Desenvolvimento de Site Institucional",
@@ -54,17 +54,30 @@ const initialProposals = [
     }
 ]
 
-const ProposalContext= createContext<ProposalType[] | any>({
-    id: 1,
-    title: "Desenvolvimento de Site Institucional",
-    client: "Tech Solutions Ltd",
-    estimatedValue: "5,000",
-    status: "enviada",
-    shippingDate: new Date().toLocaleDateString('PT-BR'),
-    deadlineResponse: "2025-02-15",
-    description: "Desenvolvimento de um site institucional responsivo.",
-    term: "30 dias",
-    createdAt: new Date("2025-4-5")
+type ProposalContextType = {
+  proposals: ProposalType[];
+  setProposals: React.Dispatch<React.SetStateAction<ProposalType[]>>;
+  addProposal: (newProposal: ProposalType) => void;
+  updateProposal: (id: number | string, updatedData: ProposalType) => void;
+  removeProposal: (id: number | string) => void;
+  filterStatus: string;
+  setFilterStatus: React.Dispatch<React.SetStateAction<string>>;
+  searchTerm: string;
+  setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
+  filteredProposals: ProposalType[];
+};
+
+const ProposalContext= createContext<ProposalContextType>({
+  proposals: [],
+  setProposals: () => {},
+  addProposal: () => {},
+  updateProposal: () => {},
+  removeProposal: () => {},
+  filterStatus: "all",
+  setFilterStatus: () => {},
+  searchTerm: "",
+  setSearchTerm: () => {},
+  filteredProposals: [],
 });
 
 export const ProposalProvider = ({ children } : { children: React.ReactNode }) => {
@@ -96,7 +109,7 @@ export const ProposalProvider = ({ children } : { children: React.ReactNode }) =
   });
 
   return (
-      <ProposalContext.Provider value={{ proposals, addProposal, updateProposal, removeProposal, filterStatus, setFilterStatus, searchTerm, setSearchTerm, filteredProposals }}
+      <ProposalContext.Provider value={{ proposals, setProposals, addProposal, updateProposal, removeProposal, filterStatus, setFilterStatus, searchTerm, setSearchTerm, filteredProposals }}
     >
       {children}
     </ProposalContext.Provider>

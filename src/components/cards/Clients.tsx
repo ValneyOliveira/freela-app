@@ -53,7 +53,7 @@ export const ClientFormDialog = ({ title, client }: { title?: string, client?: C
     <div>
         <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
           <DialogTrigger asChild>
-            <Button variant={!client && "outline"} className={`${!client && "bg-blue-500 hover:bg-blue-400 hover:text-while text-white"} border-1 hover:cursor-pointer`}>
+            <Button variant={!client ? "outline" : undefined} className={`${!client && "bg-blue-500 hover:bg-blue-400 hover:text-while text-white"} border-1 hover:cursor-pointer`}>
               {!client && <Plus className="w-4 h-4 mr-2" />}
               {client ? "Editar" : "Novo Cliente"}
             </Button>
