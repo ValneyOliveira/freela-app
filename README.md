@@ -9,16 +9,14 @@ A proposta do projeto é entregar uma ferramenta minimalista, moderna e funciona
 ## 🎯 Objetivo
 
 O projeto tem como principais objetivos:
-- Criar uma aplicação realista e funcional
 - Aprimorar as habilidades em desenvolvimento front-end
 - Exercitar a reprodução de layouts profissionais
 - Implementar Context API para o gerenciamento global de estado
 
 ## 💻 Funcionalidades Principais
-
 - Cadastro e gerenciamento de clientes
 - Criação e acompanhamento de propostas 
-- Visualização do histórico de negociações
+- Visualização do histórico
 - Edição de perfil profissional
 - Dashboard com métricas básicas 
 
